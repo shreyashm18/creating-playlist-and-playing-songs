@@ -2,12 +2,13 @@ from pygame import mixer
 import os
 mixer.init()
 song_playlist=[]
-song=input("enter song name")
+folder=input('enter path of folder where you want to search your songs\n')
+song=input("enter song name\n")
 while song:
 	song=song+'.mp3'
 	def pathFinder():
 		found=False
-		for (root,dirs,files) in os.walk('E:\\',topdown=True):
+		for (root,dirs,files) in os.walk(folder,topdown=True):
 			print(root)
 			print(dirs)
 			print(files)
@@ -38,6 +39,7 @@ if playlist_len>0:
 	mixer.music.play()
 	print('song is playing')
 	print('press p to pause the song, r for resuming, n for next song, b for previous song and e to stop')
+	print('you can also give number of the song to jump to that song directly')
 	while True:
 		inp=input('>>>')
 		inp=''.join(inp.split())
