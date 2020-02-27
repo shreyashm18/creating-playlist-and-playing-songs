@@ -20,12 +20,13 @@ while song:
 				#print(f'dirs = {dirs}')
 				song_path=root+'\\'+song
 				return song_path,found
-			'''else:
-				song_path=root'''
 		return 'song not found',found
 	song_path,found=pathFinder()
 	if found:
-		song_playlist.append(song_path)
+		if song_path not in song_playlist:
+			song_playlist.append(song_path)
+		else:
+			print(f'{song} already present in playlist at {(song_playlist.index(song_path)+1)} position')
 	else:
 		print(f'{song} {song_path}')
 	song=input("enter next song name")
@@ -84,11 +85,13 @@ if playlist_len>0:
 				mixer.music.load(song_playlist[inp-1])
 				mixer.music.play()
 				print(f'playing {os.path.split(song_playlist[inp-1])[-1]}')
-		elif inp=='0':
-			print('wrong input')
+		#elif inp=='0':
+		#	print('wrong input')
 		elif inp=='e':
 			mixer.music.stop()
 			print('song stops')
 			break
+		else:
+			print('wrong input')
 else:
 	print(song_path)
