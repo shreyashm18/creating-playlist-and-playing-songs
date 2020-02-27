@@ -11,10 +11,10 @@ while song:
 	def pathFinder():
 		found=False
 		for (root,dirs,files) in os.walk(folder,topdown=True):
-			print(root)
-			print(dirs)
-			print(files)
-			print('------------')
+			#print(root)
+			#print(dirs)
+			#print(files)
+			#print('------------')
 			for f in files:
 				if re.findall(song,f):
 					if os.path.splitext(f)[1]=='.mp3':
@@ -33,13 +33,13 @@ while song:
 			print(f'we have found these songs which contains {song} word in name, which song u want just enter its position or 0 if song is not in list')
 			print(song_containing_name)
 			while True:
-				pos=int(input('enter valid position'))
+				pos=int(input('enter valid position\n'))
 				if pos!=0 and (pos-1)<len(song_containing_name):
 					found=True
 					song_path=song_containing_name[pos-1]
 					return song_path,found
 				elif (pos-1)>len(song_containing_name):
-					print('Wrong Input')
+					print('Wrong Input\n')
 		elif len(song_containing_name)==1:
 			found=True
 			return song_containing_name[0],found
@@ -52,9 +52,9 @@ while song:
 			print(f'{song} already present in playlist at {(song_playlist.index(song_path)+1)} position')
 	else:
 		print(f'{song} {song_path}')
-	song=input("enter next song name")
+	song=input("enter next song name\n")
 playlist_len=len(song_playlist)
-print(f'Your playlist is {song_playlist}')
+print(f'Your playlist is {song_playlist}\n')
 if playlist_len>0:
 	i=0
 	print(song_path)
