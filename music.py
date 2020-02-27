@@ -1,11 +1,13 @@
 from pygame import mixer
 import os
+import re
 mixer.init()
 song_playlist=[]
 folder=input('enter path of folder where you want to search your songs\n')
 song=input("enter song name\n")
 while song:
-	song=song+'.mp3'
+	song_containing_name=[]
+	song_ext=song+'.mp3'
 	def pathFinder():
 		found=False
 		for (root,dirs,files) in os.walk(folder,topdown=True):
@@ -13,13 +15,34 @@ while song:
 			print(dirs)
 			print(files)
 			print('------------')
-			if song in files:
+			for f in files:
+				if re.findall(song,f):
+					if os.path.splitext(f)[1]=='.mp3':
+						print('index = ',files.index(f))
+						print(f'root = {root}')
+						song_path=root+'\\'+f
+						song_containing_name.append(song_path)
+			'''if song in files:
 				found=True
 				print('index = ',files.index(song))
 				print(f'root = {root}')
 				#print(f'dirs = {dirs}')
 				song_path=root+'\\'+song
-				return song_path,found
+				return song_path,found'''
+		if len(song_containing_name)>1:
+			print(f'we have found these songs which contains {song} word in name, which song u want just enter its position or 0 if song is not in list')
+			print(song_containing_name)
+			while True:
+				pos=int(input('enter valid position'))
+				if pos!=0 and (pos-1)<len(song_containing_name):
+					found=True
+					song_path=song_containing_name[pos-1]
+					return song_path,found
+				elif (pos-1)>len(song_containing_name):
+					print('Wrong Input')
+		elif len(song_containing_name)==1:
+			found=True
+			return song_containing_name[0],found
 		return 'song not found',found
 	song_path,found=pathFinder()
 	if found:
